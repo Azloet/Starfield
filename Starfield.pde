@@ -1,20 +1,210 @@
 //your code here
+Particle[] fireworks = new Particle[200];
+Star[] stars = new Star[200];
+Glitter[] glitter = new Glitter[200];
+int numOddballs;
+int ylimit;
+boolean firstLoop;
+
 void setup()
 {
-	//your code here
+  size(500,500);
+  colorMode(HSB,360,100,100,100);
+  numOddballs = 1;
+  newFireworks();
+  for(int i = 0; i < stars.length-1; i++){
+    stars[i] = new Star();
+  }
+  for(int i = stars.length-1; i < stars.length; i++){
+    stars[i] = new Moon();
+  }
+  for(int i = 1; i < stars.length; i++){
+    glitter[i] = new Glitter();
+  }
 }
+
 void draw()
 {
-	//your code here
+  //your code here
+  noStroke();
+  fill(0,0,0,5);
+  rect(0,0,500,400);
+  for(int i = 1; i <= 10; i++){
+    fill(240,5*i+20,20-i,20);
+    rect(0,500-10*i,500,10);
+  }
+  for(int i = 0; i < stars.length; i++){
+    stars[i].move();
+    stars[i].show();
+    if(i!=stars.length-1){
+      if(stars[i].x>500){
+        stars[i].x = 0;
+      }
+      else if(stars[i].x<0){
+        stars[i].x = 500;
+      }
+      if(stars[i].y>400){
+        stars[i].y = 0;
+      }
+      else if(stars[i].y<0){
+        stars[i].y = 400;
+      }
+    }
+  }
+  stars[stars.length-1].rotation += 0.005;
+  if(fireworks[0].y > ylimit){
+    for(int i = 0; i < numOddballs; i++){
+      fireworks[i].move();
+      fireworks[i].show();
+    }
+  }
+  else{
+    int onScreen = 0;
+    for(int i = numOddballs; i < fireworks.length; i++){
+      if(firstLoop){
+        fireworks[i].x = fireworks[0].x;
+      }
+      fireworks[i].alpha-=0.5;
+      fireworks[i].move();
+      fireworks[i].show();
+      if(((fireworks[i].x>0||fireworks[i].x<500)&&(fireworks[i].y>0||fireworks[i].y<500))&&(fireworks[i].alpha>-15)){
+        onScreen += 1;
+      }
+    }
+    firstLoop = false;
+    if(onScreen == 0){
+      newFireworks();
+    }
+    for(int i = 1; i < stars.length; i++){
+      glitter[i].alpha = 50*sin((float)(2*PI*glitter[i].alpha/100))+50;
+      glitter[i].show();
+    }
+  }
 }
+
+void newFireworks(){
+  double commonX = (double)((Math.random()-0.5)*300)+250;
+  double commonAngle = (double)(Math.random()-0.5)*PI/4;
+  ylimit = (int)(Math.random()*100)+100;
+  firstLoop = true;
+  for(int i = 0; i < numOddballs; i++){
+    fireworks[i] = new OddballParticle();
+    fireworks[i].x += commonX;
+    fireworks[i].angle += commonAngle;
+  }
+  for(int i = numOddballs; i < fireworks.length; i++){
+    fireworks[i] = new Particle();
+    fireworks[i].y = ylimit;
+  }
+}
+
 class Particle
 {
-	//your code here
+  //your code here
+  double x,y,speed,angle,rotation,radius,alpha;
+  int hue,saturation,brightness,size;
+  
+  Particle(){
+    x = 0;
+    y = 0;
+    speed = (double)(Math.random()*1)+0.1;
+    angle = (double)(Math.random()*2*PI);
+    rotation = (double)(Math.random()*360);
+    radius = (double)(Math.random()*10);
+    hue = (int)(Math.random()*360);
+    saturation = (int)(Math.random()*50)+50;
+    brightness = (int)(Math.random()*50)+50;
+    alpha = 100;
+    size = 10;
+  }
+  
+  void move(){
+    x += speed*Math.cos(angle);
+    y += speed*Math.sin(angle);
+    rotation += 10*speed;
+  }
+  
+  void show(){
+    fill(hue,saturation,brightness,(int)alpha);
+    pushMatrix();
+    translate((float)x,(float)y);
+    rotate((float)rotation*PI/180);
+    rect((float)radius,-(size/2),size,size);
+    popMatrix();
+  }
 }
 
-class OddballParticle //inherits from Particle
+class OddballParticle extends Particle
 {
-	//your code here
+  OddballParticle(){
+    x = 0;
+    y = 400;
+    speed = (double)(Math.random()*0)+2;
+    angle = (double)(Math.random()*0)+3*PI/2;
+    rotation = (double)(Math.random()*360);
+    radius = (double)(Math.random()*1);
+    hue = (int)(Math.random()*0)+0;
+    saturation = (int)(Math.random()*0)+0;
+    brightness = (int)(Math.random()*30)+70;
+    alpha = 100;
+    size = 5;
+  }
 }
 
+class Star extends Particle{
+  Star(){
+    x = (double)(Math.random()*500)+0;
+    y = (double)(Math.random()*400)+0;
+    speed = (double)(Math.random()*0.05)+0;
+    angle = (double)(Math.random()*2*PI)+0;
+    rotation = (double)(Math.random()*360);
+    radius = (double)(Math.random()*1);
+    hue = (int)(Math.random()*0)+0;
+    saturation = (int)(Math.random()*0)+0;
+    brightness = (int)(Math.random()*30)+70;
+    alpha = 100;
+    size = 2;
+  }
+  void show(){
+    fill(hue,saturation,brightness,(int)alpha);
+    pushMatrix();
+    translate((float)x,(float)y);
+    rotate((float)rotation*PI/180);
+    ellipse((float)radius,-(size/2),size,size);
+    popMatrix();
+  }
+}
 
+class Moon extends Star
+{
+  Moon(){
+    x = (double)(Math.random()*0)+250;
+    y = (double)(Math.random()*0)+500;
+    speed = (double)(Math.random()*0)+0;
+    angle = (double)(Math.random()*0)+0;
+    rotation = (double)(Math.random()*30)+240;
+    radius = (double)(Math.random()*0)+450;
+    hue = (int)(Math.random()*0)+0;
+    saturation = (int)(Math.random()*0)+0;
+    brightness = (int)(Math.random()*0)+100;
+    alpha = 100;
+    size = 100;
+  }
+}
+
+class Glitter extends Particle
+{
+  Glitter(){
+    x = (double)(Math.random()*500)+0;
+    y = (double)(Math.random()*100)+400;
+    speed = (double)(Math.random()*0)+0;
+    angle = (double)(Math.random()*0)+0;
+    rotation = (double)(Math.random()*360);
+    radius = (double)(Math.random()*0);
+    hue = (int)(Math.random()*360)+0;
+    saturation = (int)(Math.random()*0)+100;
+    brightness = (int)(Math.random()*30)+70;
+    alpha = 0;
+    size = 1;
+  }
+}
