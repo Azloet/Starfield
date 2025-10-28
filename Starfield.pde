@@ -27,6 +27,7 @@ void setup()
   for(int i = 0; i < glitter.length; i++){
     glitter[i] = new Glitter();
   }
+  file = new SoundFile(this, "sample.mp3");
 }
 
 void draw()
