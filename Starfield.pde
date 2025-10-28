@@ -28,6 +28,7 @@ void setup()
     glitter[i] = new Glitter();
   }
   file = new SoundFile(this, "sample.mp3");
+  file.play();
 }
 
 void draw()
