@@ -72,9 +72,11 @@ void draw()
     if(onScreen == 0){
       newFireworks();
     }
-    for(int i = 0; i < glitter.length; i++){
-      glitter[i].alpha = (100-time)*Math.random();
-      glitter[i].show();
+    else{
+      for(int i = 0; i < glitter.length; i++){
+        glitter[i].alpha = (100-time)*Math.random();
+        glitter[i].show();
+      }
     }
   }
 }
