@@ -1,10 +1,11 @@
 //your code here
 Particle[] fireworks = new Particle[200];
-Star[] stars = new Star[200];
+Star[] stars = new Star[500];
 Glitter[] glitter = new Glitter[200];
 int numOddballs;
 int ylimit;
 boolean firstLoop;
+float time;
 
 void setup()
 {
@@ -14,11 +15,14 @@ void setup()
   newFireworks();
   for(int i = 0; i < stars.length-1; i++){
     stars[i] = new Star();
+    float rndTime = (float)(Math.random()*3000)+0;
+    stars[i].x += stars[i].speed*Math.cos(stars[i].angle)*rndTime;
+    stars[i].y += stars[i].speed*Math.sin(stars[i].angle)*rndTime;
   }
   for(int i = stars.length-1; i < stars.length; i++){
     stars[i] = new Moon();
   }
-  for(int i = 1; i < stars.length; i++){
+  for(int i = 0; i < glitter.length; i++){
     glitter[i] = new Glitter();
   }
 }
@@ -37,17 +41,9 @@ void draw()
     stars[i].move();
     stars[i].show();
     if(i!=stars.length-1){
-      if(stars[i].x>500){
-        stars[i].x = 0;
-      }
-      else if(stars[i].x<0){
-        stars[i].x = 500;
-      }
-      if(stars[i].y>400){
-        stars[i].y = 0;
-      }
-      else if(stars[i].y<0){
-        stars[i].y = 400;
+      if((stars[i].x<0||stars[i].x>500)||(stars[i].y<0||stars[i].y>400)){
+        stars[i].x = 250;
+        stars[i].y = 200;
       }
     }
   }
@@ -71,18 +67,20 @@ void draw()
         onScreen += 1;
       }
     }
+    time += 0.5;
     firstLoop = false;
     if(onScreen == 0){
       newFireworks();
     }
-    for(int i = 1; i < stars.length; i++){
-      glitter[i].alpha = 50*sin((float)(2*PI*glitter[i].alpha/100))+50;
+    for(int i = 0; i < glitter.length; i++){
+      glitter[i].alpha = (100-time)*Math.random();
       glitter[i].show();
     }
   }
 }
 
 void newFireworks(){
+  time = 0;
   double commonX = (double)((Math.random()-0.5)*300)+250;
   double commonAngle = (double)(Math.random()-0.5)*PI/4;
   ylimit = (int)(Math.random()*100)+100;
@@ -153,12 +151,12 @@ class OddballParticle extends Particle
 
 class Star extends Particle{
   Star(){
-    x = (double)(Math.random()*500)+0;
-    y = (double)(Math.random()*400)+0;
-    speed = (double)(Math.random()*0.05)+0;
+    x = (double)(Math.random()*0)+250;
+    y = (double)(Math.random()*0)+200;
+    speed = (double)(Math.random()*0.1)+0;
     angle = (double)(Math.random()*2*PI)+0;
     rotation = (double)(Math.random()*360);
-    radius = (double)(Math.random()*1);
+    radius = (double)(Math.random()*0);
     hue = (int)(Math.random()*0)+0;
     saturation = (int)(Math.random()*0)+0;
     brightness = (int)(Math.random()*30)+70;
