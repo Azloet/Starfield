@@ -1,4 +1,6 @@
 //your code here
+import processing.sound.*;
+SoundFile file;
 Particle[] fireworks = new Particle[200];
 Star[] stars = new Star[500];
 Glitter[] glitter = new Glitter[200];
@@ -25,6 +27,8 @@ void setup()
   for(int i = 0; i < glitter.length; i++){
     glitter[i] = new Glitter();
   }
+  file = new SoundFile(this, "sample.mp3");
+  file.play();
 }
 
 void draw()
@@ -34,7 +38,7 @@ void draw()
   fill(0,0,0,5);
   rect(0,0,500,400);
   for(int i = 1; i <= 10; i++){
-    fill(240,5*i+20,20-i,20);
+    fill(240,5*i+20,30-i,20);
     rect(0,500-10*i,500,10);
   }
   for(int i = 0; i < stars.length; i++){
