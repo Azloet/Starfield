@@ -12,7 +12,7 @@ float time;
 void setup()
 {
   Minim minim = new Minim(this);
-  music = minim.loadFile("sample.mp3");
+  music = minim.loadFile("sample.ogg");
   music.play();
 
   size(500,500);
