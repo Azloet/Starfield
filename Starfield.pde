@@ -1,4 +1,5 @@
 //your code here
+import ddf.minim.*;
 AudioPlayer music;
 
 Particle[] fireworks = new Particle[200];
@@ -12,7 +13,7 @@ float time;
 void setup()
 {
   Minim minim = new Minim(this);
-  music = minim.loadFile("sample.ogg");
+  music = minim.loadFile("data//sample.mp3");
   music.play();
 
   size(500,500);
