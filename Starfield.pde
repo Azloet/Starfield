@@ -33,13 +33,10 @@ void setup()
   music = minim.loadFile("data//sample.mp3");
 }
 
-void mouseClicked(){
-  music.play();
-}
-
 void draw()
 {
   //your code here
+  music.play();
   noStroke();
   fill(0,0,0,5);
   rect(0,0,500,400);
