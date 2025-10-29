@@ -1,7 +1,8 @@
-import processing.sound.*;
+import ddf.minim.*;
 
 //your code here
-SoundFile music;
+Minim minim;
+AudioPlayer music;
 Particle[] fireworks = new Particle[200];
 Star[] stars = new Star[500];
 Glitter[] glitter = new Glitter[200];
@@ -12,6 +13,9 @@ float time;
 
 void setup()
 {
+  minim = new Minim(this);
+  music = minim.loadFile("sample.mp3");
+  music.loop();
   size(500,500);
   colorMode(HSB,360,100,100,100);
   numOddballs = 1;
