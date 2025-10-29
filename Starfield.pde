@@ -12,10 +12,6 @@ float time;
 
 void setup()
 {
-  Minim minim = new Minim(this);
-  music = minim.loadFile("data//sample.mp3");
-  music.play();
-
   size(500,500);
   colorMode(HSB,360,100,100,100);
   numOddballs = 1;
@@ -32,6 +28,9 @@ void setup()
   for(int i = 0; i < glitter.length; i++){
     glitter[i] = new Glitter();
   }
+  Minim minim = new Minim(this);
+  music = minim.loadFile("data//sample.mp3");
+  music.play();
 }
 
 void draw()
