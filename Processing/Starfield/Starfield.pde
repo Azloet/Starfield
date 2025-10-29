@@ -1,4 +1,7 @@
+import processing.sound.*;
+
 //your code here
+SoundFile music;
 Particle[] fireworks = new Particle[200];
 Star[] stars = new Star[500];
 Glitter[] glitter = new Glitter[200];
@@ -9,6 +12,8 @@ float time;
 
 void setup()
 {
+  music = new SoundFile(this,"sample.mp3");
+  music.play();
   size(500,500);
   colorMode(HSB,360,100,100,100);
   numOddballs = 1;
