@@ -31,9 +31,6 @@ void setup()
   }
   minim = new Minim(this);
   music = minim.loadFile("data//sample.mp3");
-}
-
-void mouseClicked() {
   music.play();
 }
 
