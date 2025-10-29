@@ -12,8 +12,6 @@ float time;
 
 void setup()
 {
-  music = new SoundFile(this,"sample.mp3");
-  music.play();
   size(500,500);
   colorMode(HSB,360,100,100,100);
   numOddballs = 1;
