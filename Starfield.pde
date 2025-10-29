@@ -1,5 +1,6 @@
 //your code here
 import ddf.minim.*;
+Minim minim;
 AudioPlayer music;
 
 Particle[] fireworks = new Particle[200];
@@ -28,7 +29,7 @@ void setup()
   for(int i = 0; i < glitter.length; i++){
     glitter[i] = new Glitter();
   }
-  Minim minim = new Minim(this);
+  minim = new Minim(this);
   music = minim.loadFile("data//sample.mp3");
   music.play();
 }
