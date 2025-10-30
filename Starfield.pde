@@ -5,7 +5,7 @@ AudioPlayer ymusic,rmusic,fireworkSound;
 
 Particle[] fireworks = new Particle[200];
 Star[] stars = new Star[500];
-Glitter[] glitter = new Glitter[200];
+Glitter[] glitter = new Glitter[250];
 
 int numOddballs;
 int ylimit;
@@ -25,15 +25,17 @@ void setup()
   numOddballs = 1;
 
   newFireworks();
+  
   for(int i = 0; i < stars.length-1; i++){
     stars[i] = new Star();
-    float rndTime = (float)(Math.random()*3000)+0;
-    stars[i].x += stars[i].speed*Math.cos(stars[i].angle)*rndTime;
-    stars[i].y += stars[i].speed*Math.sin(stars[i].angle)*rndTime;
+    float rndTime = (float)(Math.random()*300)+0;
+    stars[i].x += Math.cos(stars[i].angle)*rndTime;
+    stars[i].y += Math.sin(stars[i].angle)*rndTime*2/3;
   }
   for(int i = stars.length-1; i < stars.length; i++){
     stars[i] = new Moon();
   }
+  
   for(int i = 0; i < glitter.length; i++){
     glitter[i] = new Glitter();
   }
@@ -140,7 +142,7 @@ class Particle
     speed = (double)(Math.random()*1)+0.1;
     angle = (double)(Math.random()*2*PI);
     rotation = (double)(Math.random()*360);
-    radius = (double)(Math.random()*10);
+    radius = (double)(Math.random()*1);
     hue = (int)(Math.random()*360);
     saturation = (int)(Math.random()*50)+50;
     brightness = (int)(Math.random()*50)+50;
@@ -159,7 +161,7 @@ class Particle
     pushMatrix();
     translate((float)x,(float)y);
     rotate((float)rotation*PI/180);
-    rect((float)radius,-(size/2),size,size);
+    rect((float)radius-(size/2),-(size/2),size,size);
     popMatrix();
   }
 }
@@ -172,12 +174,12 @@ class OddballParticle extends Particle
     speed = (double)(Math.random()*0)+2;
     angle = (double)(Math.random()*0)+3*PI/2;
     rotation = (double)(Math.random()*360);
-    radius = (double)(Math.random()*1);
+    radius = (double)(Math.random()*5);
     hue = (int)(Math.random()*0)+0;
     saturation = (int)(Math.random()*0)+0;
     brightness = (int)(Math.random()*30)+70;
     alpha = 100;
-    size = 10;
+    size = 8;
   }
 }
 
@@ -185,7 +187,7 @@ class Star extends Particle{
   Star(){
     x = (double)(Math.random()*0)+250;
     y = (double)(Math.random()*0)+200;
-    speed = (double)(Math.random()*0.1)+0;
+    speed = (double)(Math.random()*0.05)+0;
     angle = (double)(Math.random()*2*PI)+0;
     rotation = (double)(Math.random()*360);
     radius = (double)(Math.random()*0);
