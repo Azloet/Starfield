@@ -145,7 +145,7 @@ class Particle
     saturation = (int)(Math.random()*50)+50;
     brightness = (int)(Math.random()*50)+50;
     alpha = 100;
-    size = 10;
+    size = 5;
   }
   
   void move(){
@@ -177,7 +177,7 @@ class OddballParticle extends Particle
     saturation = (int)(Math.random()*0)+0;
     brightness = (int)(Math.random()*30)+70;
     alpha = 100;
-    size = 5;
+    size = 10;
   }
 }
 
