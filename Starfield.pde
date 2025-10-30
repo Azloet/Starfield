@@ -30,7 +30,7 @@ void setup()
     glitter[i] = new Glitter();
   }
   minim = new Minim(this);
-  music = minim.loadFile("data//sample.mp3");
+  music = minim.loadFile("data//Moseni_hydrangea.mp3");
 }
 
 void draw()
