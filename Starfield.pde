@@ -96,10 +96,11 @@ void draw()
 }
 
 void mousePressed(){
-  rmusic.play();
+  //rmusic.loop();
 }
 
 void newFireworks(){
+  fireworksSound.play();
   time = 0;
   ylimit = (int)(Math.random()*100)+100;
   firstLoop = true;
