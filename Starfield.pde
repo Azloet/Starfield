@@ -67,7 +67,6 @@ void draw()
       fireworks[i].move();
       fireworks[i].show();
     }
-    fireworksSound.play();
   }
   else{
     int onScreen = 0;
@@ -92,20 +91,12 @@ void draw()
         glitter[i].alpha = (100-time)*Math.random();
         glitter[i].show();
       }
-      if(fireworksSound.position<5){
-        fireworksSound.cue(5000);
-      }
     }
   }
 }
 
 void mousePressed(){
-  if(Math.random()>0.5){
-    ymusic.play();
-  }
-  else{
-    rmusic.play();
-  }
+  rmusic.play();
 }
 
 void newFireworks(){
