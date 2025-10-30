@@ -67,7 +67,7 @@ void draw()
       fireworks[i].move();
       fireworks[i].show();
     }
-    if(fireworkSound.position()>5400){
+    if(fireworkSound.position()>5500){
       fireworkSound.pause();
     }
   }
@@ -94,9 +94,9 @@ void draw()
         glitter[i].alpha = (100-time)*Math.random();
         glitter[i].show();
       }
-      if(fireworkSound.position()<5500){
+      if(fireworkSound.position()<5600){
         fireworkSound.play();
-        fireworkSound.cue(5500);
+        fireworkSound.cue(5600);
       }
     }
   }
@@ -112,7 +112,7 @@ void newFireworks(){
   firstLoop = true;
 
   fireworkSound.play();
-  fireworkSound.cue(2500+(int)(ylimit-99)*10);
+  fireworkSound.cue(2500+(int)(ylimit-99)*12);
   
   double commonX = (double)((Math.random()-0.5)*300)+250;
   double commonAngle = (double)(Math.random()-0.5)*PI/4;
