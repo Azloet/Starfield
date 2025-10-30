@@ -11,7 +11,11 @@ public void setup()
 
   /*initialize sounds*/
   minim = new Minim(this);
+<<<<<<< HEAD
   sample = minim.loadFile("data//sample.mp3");
+=======
+  music = minim.loadFile("data/sample.mp3");
+>>>>>>> eb1520db05cdb3935597852b6c9c4305f3a82078
 }
 
 void draw() {
