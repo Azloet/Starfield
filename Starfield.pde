@@ -1,11 +1,12 @@
 //your code here
 import ddf.minim.*;
 Minim minim;
-AudioPlayer music;
+AudioPlayer ymusic,rmusic,fireworkSound;
 
 Particle[] fireworks = new Particle[200];
 Star[] stars = new Star[500];
 Glitter[] glitter = new Glitter[200];
+
 int numOddballs;
 int ylimit;
 boolean firstLoop;
@@ -13,9 +14,16 @@ float time;
 
 void setup()
 {
+  minim = new Minim(this);
+  ymusic = minim.loadFile("data//Moseni_hydrangea.mp3");
+  rmusic = minim.loadFile("data//BGM032.mp3");
+  fireworkSound = minim.loadFile("data//fireworks.mp3");
+
   size(500,500);
   colorMode(HSB,360,100,100,100);
+
   numOddballs = 1;
+
   newFireworks();
   for(int i = 0; i < stars.length-1; i++){
     stars[i] = new Star();
@@ -29,14 +37,11 @@ void setup()
   for(int i = 0; i < glitter.length; i++){
     glitter[i] = new Glitter();
   }
-  minim = new Minim(this);
-  music = minim.loadFile("data//Moseni_hydrangea.mp3");
 }
 
 void draw()
 {
   //your code here
-  music.play();
   noStroke();
   fill(0,0,0,5);
   rect(0,0,500,400);
@@ -44,6 +49,7 @@ void draw()
     fill(240,5*i+20,30-i,20);
     rect(0,500-10*i,500,10);
   }
+
   for(int i = 0; i < stars.length; i++){
     stars[i].move();
     stars[i].show();
@@ -55,11 +61,13 @@ void draw()
     }
   }
   stars[stars.length-1].rotation += 0.005;
+
   if(fireworks[0].y > ylimit){
     for(int i = 0; i < numOddballs; i++){
       fireworks[i].move();
       fireworks[i].show();
     }
+    fireworksSound.play();
   }
   else{
     int onScreen = 0;
@@ -84,16 +92,29 @@ void draw()
         glitter[i].alpha = (100-time)*Math.random();
         glitter[i].show();
       }
+      if(fireworksSound.position<5){
+        fireworksSound.cue(5000);
+      }
     }
+  }
+}
+
+void mousePressed(){
+  if(Math.random()>0.5){
+    ymusic.play();
+  }
+  else{
+    rmusic.play();
   }
 }
 
 void newFireworks(){
   time = 0;
-  double commonX = (double)((Math.random()-0.5)*300)+250;
-  double commonAngle = (double)(Math.random()-0.5)*PI/4;
   ylimit = (int)(Math.random()*100)+100;
   firstLoop = true;
+  double commonX = (double)((Math.random()-0.5)*300)+250;
+  double commonAngle = (double)(Math.random()-0.5)*PI/4;
+  
   for(int i = 0; i < numOddballs; i++){
     fireworks[i] = new OddballParticle();
     fireworks[i].x += commonX;
