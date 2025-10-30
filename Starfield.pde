@@ -103,7 +103,7 @@ void draw()
 }
 
 void mousePressed(){
-  //rmusic.loop();
+  rmusic.loop();
 }
 
 void newFireworks(){
