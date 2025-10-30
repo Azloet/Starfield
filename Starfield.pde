@@ -67,7 +67,7 @@ void draw()
       fireworks[i].move();
       fireworks[i].show();
     }
-    if(fireworkSound.position()>5.4){
+    if(fireworkSound.position()>5400){
       fireworkSound.pause();
     }
   }
@@ -94,8 +94,7 @@ void draw()
         glitter[i].alpha = (100-time)*Math.random();
         glitter[i].show();
       }
-      if(fireworkSound.position()<5.5){
-        fireworkSound.rewind();
+      if(fireworkSound.position()<5500){
         fireworkSound.play();
         fireworkSound.cue(5500);
       }
@@ -108,7 +107,6 @@ void mousePressed(){
 }
 
 void newFireworks(){
-  fireworkSound.rewind();
   fireworkSound.play();
   fireworkSound.cue(2000);
   time = 0;
