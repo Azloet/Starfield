@@ -91,8 +91,8 @@ void draw()
         glitter[i].alpha = (100-time)*Math.random();
         glitter[i].show();
       }
-      if(fireworkSound.position()<5){
-        fireworkSound.cue(5000);
+      if(fireworkSound.position()<6){
+        fireworkSound.cue(6000);
       }
     }
   }
@@ -104,7 +104,7 @@ void mousePressed(){
 
 void newFireworks(){
   fireworkSound.play();
-  fireworkSound.cue(2000);
+  fireworkSound.cue(3000);
   time = 0;
   ylimit = (int)(Math.random()*100)+100;
   firstLoop = true;
