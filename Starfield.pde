@@ -100,7 +100,7 @@ void mousePressed(){
 }
 
 void newFireworks(){
-  fireworksSound.play();
+  fireworkSound.play();
   time = 0;
   ylimit = (int)(Math.random()*100)+100;
   firstLoop = true;
