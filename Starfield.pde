@@ -112,7 +112,7 @@ void newFireworks(){
   firstLoop = true;
 
   fireworkSound.play();
-  fireworkSound.cue(2000+(int)(ylimit-99)*10);
+  fireworkSound.cue(2500+(int)(ylimit-99)*10);
   
   double commonX = (double)((Math.random()-0.5)*300)+250;
   double commonAngle = (double)(Math.random()-0.5)*PI/4;
