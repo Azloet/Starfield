@@ -68,7 +68,7 @@ void draw()
       fireworks[i].show();
     }
     if(fireworkSound.position()>5.4){
-      fireworkSound.mute();
+      fireworkSound.pause();
     }
   }
   else{
@@ -95,8 +95,8 @@ void draw()
         glitter[i].show();
       }
       if(fireworkSound.position()<5.5){
+        fireworkSound.play();
         fireworkSound.cue(5500);
-        fireworkSound.unmute();
       }
     }
   }
@@ -104,13 +104,11 @@ void draw()
 
 void mousePressed(){
   //rmusic.loop();
-  fireworkSound.loop();
-  fireworkSound.mute();
 }
 
 void newFireworks(){
+  fireworkSound.play();
   fireworkSound.cue(2000);
-  fireworkSound.unmute();
   time = 0;
   ylimit = (int)(Math.random()*100)+100;
   firstLoop = true;
