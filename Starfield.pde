@@ -5,7 +5,7 @@ AudioPlayer ymusic,rmusic,fireworkSound;
 
 Particle[] fireworks = new Particle[200];
 Star[] stars = new Star[500];
-Glitter[] glitter = new Glitter[250];
+Glitter[] glitter = new Glitter[500];
 
 int numOddballs;
 int ylimit;
@@ -28,16 +28,19 @@ void setup()
   
   for(int i = 0; i < stars.length-1; i++){
     stars[i] = new Star();
-    float rndTime = (float)(Math.random()*300)+0;
-    stars[i].x += Math.cos(stars[i].angle)*rndTime;
-    stars[i].y += Math.sin(stars[i].angle)*rndTime*2/3;
+    //float rndTime = (float)(Math.random()*300)+0;
+    //stars[i].x += Math.cos(stars[i].angle)*rndTime;
+    //stars[i].y += Math.sin(stars[i].angle)*rndTime*2/3;
   }
   for(int i = stars.length-1; i < stars.length; i++){
     stars[i] = new Moon();
   }
   
-  for(int i = 0; i < glitter.length; i++){
+  for(int i = 0; i < glitter.length-200; i++){
     glitter[i] = new Glitter();
+  }
+  for(int i = glitter.length-200; i < glitter.length; i++){
+    glitter[i] = new SkyGlitter();
   }
 }
 
@@ -45,6 +48,16 @@ void draw()
 {
   //your code here
   noStroke();
+  
+  for(int i = glitter.length-200; i < glitter.length; i++){
+    glitter[i].show();
+  }
+  
+  for(int i = 0; i < stars.length; i++){
+    stars[i].move();
+    stars[i].show();
+  }
+
   fill(0,0,0,5);
   rect(0,0,500,400);
   for(int i = 1; i <= 10; i++){
@@ -52,18 +65,7 @@ void draw()
     rect(0,500-10*i,500,10);
   }
 
-  for(int i = 0; i < stars.length; i++){
-    stars[i].move();
-    stars[i].show();
-    if(i!=stars.length-1){
-      if((stars[i].x<0||stars[i].x>500)||(stars[i].y<0||stars[i].y>400)){
-        stars[i].x = 250;
-        stars[i].y = 200;
-      }
-    }
-  }
-  stars[stars.length-1].rotation += 0.005;
-
+  
   if(fireworks[0].y > ylimit){
     for(int i = 0; i < numOddballs; i++){
       fireworks[i].move();
@@ -92,7 +94,7 @@ void draw()
       newFireworks();
     }
     else{
-      for(int i = 0; i < glitter.length; i++){
+      for(int i = 0; i < glitter.length-200; i++){
         glitter[i].alpha = (100-time)*Math.random();
         glitter[i].show();
       }
@@ -187,22 +189,26 @@ class Star extends Particle{
   Star(){
     x = (double)(Math.random()*0)+250;
     y = (double)(Math.random()*0)+200;
-    speed = (double)(Math.random()*0.05)+0;
-    angle = (double)(Math.random()*2*PI)+0;
+    speed = (double)(Math.random()*5)+0.1;
+    angle = (double)(Math.random()*0)+0;
     rotation = (double)(Math.random()*360);
-    radius = (double)(Math.random()*0);
+    radius = (double)(Math.random()*100);
     hue = (int)(Math.random()*0)+0;
     saturation = (int)(Math.random()*0)+0;
-    brightness = (int)(Math.random()*30)+70;
+    brightness = (int)(Math.random()*0)+100;
     alpha = 100;
-    size = 2;
+    size = 1;
+  }
+  void move(){
+    rotation += speed;
   }
   void show(){
     fill(hue,saturation,brightness,(int)alpha);
     pushMatrix();
     translate((float)x,(float)y);
+    shearX(1);
     rotate((float)rotation*PI/180);
-    ellipse((float)radius,-(size/2),size,size);
+    ellipse((float)radius-(size/2),-(size/2),size,size);
     popMatrix();
   }
 }
@@ -212,7 +218,7 @@ class Moon extends Star
   Moon(){
     x = (double)(Math.random()*0)+250;
     y = (double)(Math.random()*0)+500;
-    speed = (double)(Math.random()*0)+0;
+    speed = (double)(Math.random()*0.005)+0;
     angle = (double)(Math.random()*0)+0;
     rotation = (double)(Math.random()*30)+240;
     radius = (double)(Math.random()*0)+450;
@@ -221,6 +227,14 @@ class Moon extends Star
     brightness = (int)(Math.random()*0)+100;
     alpha = 100;
     size = 100;
+  }
+  void show(){
+    fill(hue,saturation,brightness,(int)alpha);
+    pushMatrix();
+    translate((float)x,(float)y);
+    rotate((float)rotation*PI/180);
+    ellipse((float)radius-(size/2),-(size/2),size,size);
+    popMatrix();
   }
 }
 
@@ -235,8 +249,25 @@ class Glitter extends Particle
     radius = (double)(Math.random()*0);
     hue = (int)(Math.random()*360)+0;
     saturation = (int)(Math.random()*0)+100;
-    brightness = (int)(Math.random()*30)+70;
+    brightness = (int)(Math.random()*0)+100;
     alpha = 0;
     size = 1;
+  }
+}
+
+class SkyGlitter extends Glitter
+{
+  SkyGlitter(){
+    x = (double)(Math.random()*500)+0;
+    y = (double)(Math.random()*400)+0;
+    speed = (double)(Math.random()*0)+0;
+    angle = (double)(Math.random()*0)+0;
+    rotation = (double)(Math.random()*360);
+    radius = (double)(Math.random()*0);
+    hue = (int)(Math.random()*0)+0;
+    saturation = (int)(Math.random()*0)+0;
+    brightness = (int)(Math.random()*0)+100;
+    alpha = 100;
+    size = 2;
   }
 }
